@@ -32,12 +32,19 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnNacosDiscoveryEnabled
 public class NacosDiscoveryAutoConfiguration {
 
+	/**
+	 * @return 通过property文件，载入nacos配置（spring.cloud.nacos.discovery）
+	 */
 	@Bean
 	@ConditionalOnMissingBean
 	public NacosDiscoveryProperties nacosProperties() {
 		return new NacosDiscoveryProperties();
 	}
 
+	/**
+	 * @param discoveryProperties
+	 * @return nacos发现服务自动注入，发现服务：发现所有的意见注册的服务，通过服务名获取某个服务
+	 */
 	@Bean
 	@ConditionalOnMissingBean
 	public NacosServiceDiscovery nacosServiceDiscovery(

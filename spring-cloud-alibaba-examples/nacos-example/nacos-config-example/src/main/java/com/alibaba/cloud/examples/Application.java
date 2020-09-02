@@ -25,6 +25,8 @@ import java.util.concurrent.Executor;
 import com.alibaba.cloud.nacos.NacosConfigManager;
 import com.alibaba.nacos.api.config.listener.Listener;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -156,6 +158,8 @@ class SampleController {
 	@Autowired
 	private NacosConfigManager nacosConfigManager;
 
+	Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
 	@Value("${user.name}")
 	String userName;
 
@@ -164,13 +168,17 @@ class SampleController {
 
 	@RequestMapping("/user")
 	public String simple() {
-		return "Hello Nacos Config!" + "Hello " + userName + " " + age + " [UserConfig]: "
+		String user= "Hello Nacos Config!" + "Hello " + userName + " " + age + " [UserConfig]: "
 				+ userConfig + "!" + nacosConfigManager.getConfigService();
+		logger.info(user);
+		return user;
 	}
 
 	@RequestMapping("/bool")
 	public boolean bool() {
-		return (Boolean) (userConfig.getMap().get("2"));
+		Object value = userConfig.getMap().get("2");
+		logger.info(value.toString());
+		return (Boolean) (value);
 	}
 
 }

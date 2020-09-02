@@ -45,12 +45,23 @@ import org.springframework.context.annotation.Configuration;
 		NacosDiscoveryAutoConfiguration.class })
 public class NacosServiceRegistryAutoConfiguration {
 
+	/**
+	 * nacos注册服务：向服务集群发送注册http请求
+	 * @param nacosDiscoveryProperties
+	 * @return
+	 */
 	@Bean
 	public NacosServiceRegistry nacosServiceRegistry(
 			NacosDiscoveryProperties nacosDiscoveryProperties) {
 		return new NacosServiceRegistry(nacosDiscoveryProperties);
 	}
 
+	/**
+	 * nacos注册实例
+	 * @param nacosDiscoveryProperties
+	 * @param context
+	 * @return
+	 */
 	@Bean
 	@ConditionalOnBean(AutoServiceRegistrationProperties.class)
 	public NacosRegistration nacosRegistration(
@@ -59,6 +70,13 @@ public class NacosServiceRegistryAutoConfiguration {
 		return new NacosRegistration(nacosDiscoveryProperties, context);
 	}
 
+	/**
+	 * 向nacos发送注册请求的原点，会调用NacosServiceRegistry.registry
+	 * @param registry
+	 * @param autoServiceRegistrationProperties
+	 * @param registration
+	 * @return
+	 */
 	@Bean
 	@ConditionalOnBean(AutoServiceRegistrationProperties.class)
 	public NacosAutoServiceRegistration nacosAutoServiceRegistration(

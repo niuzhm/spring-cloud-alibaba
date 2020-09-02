@@ -46,6 +46,11 @@ import org.springframework.scheduling.TaskScheduler;
 @AutoConfigureAfter(NacosDiscoveryAutoConfiguration.class)
 public class NacosDiscoveryClientConfiguration {
 
+	/**
+	 * 当前的client服务，
+	 * @param nacosServiceDiscovery
+	 * @return
+	 */
 	@Bean
 	public DiscoveryClient nacosDiscoveryClient(
 			NacosServiceDiscovery nacosServiceDiscovery) {

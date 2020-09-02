@@ -43,11 +43,13 @@ public class NacosRibbonClientConfiguration {
 	@ConditionalOnMissingBean
 	public ServerList<?> ribbonServerList(IClientConfig config,
 			NacosDiscoveryProperties nacosDiscoveryProperties) {
+		//获取指定服务名的服务列表
 		if (this.propertiesFactory.isSet(ServerList.class, config.getClientName())) {
 			ServerList serverList = this.propertiesFactory.get(ServerList.class, config,
 					config.getClientName());
 			return serverList;
 		}
+		//获取所有的服务列表
 		NacosServerList serverList = new NacosServerList(nacosDiscoveryProperties);
 		serverList.initWithNiwsConfig(config);
 		return serverList;

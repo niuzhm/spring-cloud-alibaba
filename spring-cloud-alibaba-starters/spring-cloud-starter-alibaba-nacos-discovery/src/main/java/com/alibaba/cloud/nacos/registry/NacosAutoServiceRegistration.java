@@ -27,6 +27,8 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
+ * 注意这里继承的抽象类AbstractAutoServiceRegistration，在容器启动后ApplicationListener，
+ * 会自动运行onApplicationEvent
  * @author xiaojing
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  */
@@ -73,6 +75,7 @@ public class NacosAutoServiceRegistration
 		if (this.registration.getPort() < 0) {
 			this.registration.setPort(getPort().get());
 		}
+		log.info("register current client {}", this.registration.getHost());
 		super.register();
 	}
 
